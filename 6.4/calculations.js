@@ -47,3 +47,15 @@ console.log(getPreIncrement(100, 10));
 console.log(getPostIncrement(100, 10));
 console.log(getPreDecrement(100, 10));
 console.log(getPostDecrement(100, 10));
+
+//another
+function getPreDecrement(x) {
+  y = --x;
+  return y;
+  }
+  function getPostDecrement(x) {
+  y = x--;
+  return y;
+  }
+  console.log(getPreDecrement(100));
+  console.log(getPostDecrement(100));
