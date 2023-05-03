@@ -1,0 +1,26 @@
+{
+  "name": "test_project",
+  "version": "1.0.0",
+  "description": "for hometask_9.1",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Solveighn/9.1.git"
+  },
+  "keywords": [
+    "test",
+    "javascript"
+  ],
+  "author": "Solveighn",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Solveighn/9.1/issues"
+  },
+  "homepage": "https://github.com/Solveighn/9.1#readme",
+  "devDependencies": {
+    "jest": "^29.5.0"
+  }
+}
