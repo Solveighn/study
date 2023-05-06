@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "babel-plugin-istanbul": "^6.1.1"
+  },
+  "name": "10.1",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.5.0"
+  },
+  "scripts": {
+    "test": "jest"
+  }
+}
