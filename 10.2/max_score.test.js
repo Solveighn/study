@@ -6,7 +6,7 @@ ${[
       { "name": "Ivan", "score": 45, "date": "2022-10-11" },
       { "name": "Maria", "score": 5, "date": "2022-10-10" },
       { "name": "Olga", "score": 6, "date": "" },
-      { "name": "Stepan", "score": 35, "date": "2022-10-12" },
+      { "name": "Stepan", "score": 45, "date": "2022-10-11" },
       { "name": "Oleg", "score": 9, "date": "2022-10-01" },
       { "name": "Zhanna", "score": 15, "date": "2022-10-11" }
     ]} | ${"Congratulations Ivan!\n"}
@@ -20,18 +20,18 @@ ${[
       { "name": "Dmitry", "score": 25, "date": "2022-10-12" },
       { "name": "Denis", "score": 10, "date": "2022-10-02" },
       { "name": "Vladimyr", "score": 1, "date": "2022-10-11" }
-    ]} | ${"Congratulations Natalia! Marina! Dmitry!\n"}
+    ]} | ${"Congratulations Marina!\n"}
 
 
 
     ${[
-      { "name": "Irina", "score": 0, "date": "2022-10-11" },
-      { "name": "Vasily", "score": 0, "date": "2022-10-10" },
-      { "name": "David", "score": 0, "date": "2022-10-11" },
-      { "name": "Kristina", "score": 0, "date": "2022-10-12" },
-      { "name": "Varvara", "score": 0, "date": "2022-10-01" },
-      { "name": "Tanya", "score": 0, "date": "2022-10-11" }
-    ]} | ${"Congratulations Irina! Vasily! David! Kristina! Varvara! Tanya!\n"}
+      { "name": "Irina", "score": 33, "date": "2022-10-11" },
+      { "name": "Vasily", "score": 80, "date": "2022-10-10" },
+      { "name": "David", "score": 80, "date": "2022-10-01" },
+      { "name": "Kristina", "score": 60, "date": "2022-10-12" },
+      { "name": "Varvara", "score": 25, "date": "2022-10-01" },
+      { "name": "Tanya", "score": 75, "date": "2022-10-11" }
+    ]} | ${"Congratulations David!\n"}
     
   ` ("Проверка возвращаемого результата", ({studentsGroup, result}) => {
     expect(maxScore(studentsGroup)).toEqual(result);
