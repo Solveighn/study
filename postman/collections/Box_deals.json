@@ -1,0 +1,830 @@
+{
+	"info": {
+		"_postman_id": "5caa95a9-39dd-4474-a11a-e25822d31153",
+		"name": "Box_deals",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "16377691-5caa95a9-39dd-4474-a11a-e25822d31153"
+	},
+	"item": [
+		{
+			"name": "Successful authorization",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bad0ac48-496b-498f-8df9-d82c30d54c12",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Check email_value\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.email).to.eql(pm.collectionVariables.get(\"email\"));\r",
+							"});\r",
+							"//pm.collectionVariables.get(\"variable_key\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "c8fd7b9e-8170-4466-b8a0-d0c8266c4417",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\": \"{{email}}\",\r\n \"password\": \"{{password}}\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Base_URL}}/login?redirect=%2F",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"login"
+					],
+					"query": [
+						{
+							"key": "redirect",
+							"value": "%2F"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get_all_boxes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a62c3904-c054-4727-a680-ff367986e926",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "23791b37-d59f-4f29-9a9a-3dbb1b2e3e09",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Base_URL}}/account/boxes",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"account",
+						"boxes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create_box(positive)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "adfcf6f0-dbca-49c1-88ef-96e22fcfcd2d",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.collectionVariables.set(\"NameBox\", jsonData.box.name);\r",
+							"pm.collectionVariables.set(\"Key\", jsonData.box.key);\r",
+							"\r",
+							"pm.test(\"Check name\", function () {\r",
+							"    pm.expect(jsonData.box.name).to.eql(pm.collectionVariables.get(\"NameBox\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check email\", function () {\r",
+							"    pm.expect(jsonData.admin.email).to.eql(pm.collectionVariables.get(\"email\"));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "dc460865-bd34-473a-9592-d30d5e105dcb",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cashLimit\": \"2000\",\r\n    \"cashLimitCurrency\": \"rub\",\r\n    \"createAdminCard\": null,\r\n    \"email\": null,\r\n    \"isArchived\": null,\r\n    \"isCreated\": true,\r\n    \"isInviteAfterDraw\": null,\r\n    \"isPhoneRequired\": false,\r\n    \"key\": \"{{$randomPassword}}\",\r\n    \"logo\": null,\r\n    \"name\": \"{{$randomNoun}}_{{$randomInt}}\",\r\n    \"picture\": \"cake\",\r\n    \"useCashLimit\": true,\r\n    \"useCircleDraw\": null,\r\n    \"useNames\": true,\r\n    \"usePost\": false,\r\n    \"useWish\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Base_URL}}/box",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"box"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create_box(duplicate)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cfa5e70f-0053-4912-99ff-e124d22a5294",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Check email\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.admin.email).to.eql(pm.collectionVariables.get(\"email\"));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "0e20a448-12bf-492b-9b3a-9c1ea986c0e4",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cashLimit\": \"2000\",\r\n    \"cashLimitCurrency\": \"rub\",\r\n    \"createAdminCard\": null,\r\n    \"email\": null,\r\n    \"isArchived\": null,\r\n    \"isCreated\": true,\r\n    \"isInviteAfterDraw\": null,\r\n    \"isPhoneRequired\": false,\r\n    \"key\": \"{{Key}}\",\r\n    \"logo\": null,\r\n    \"name\": \"{{NameBox}}\",\r\n    \"picture\": \"cake\",\r\n    \"useCashLimit\": true,\r\n    \"useCircleDraw\": null,\r\n    \"useNames\": true,\r\n    \"usePost\": false,\r\n    \"useWish\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Base_URL}}/box",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"box"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create_box(negative_1)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3c6a0c49-652b-4a0a-9397-ec5031a05e43",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Check error name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.error.name).to.eql(\"ValidationError\");\r",
+							"});\r",
+							"pm.test(\"Check error field\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.error.errors[0].field).to.eql(\"cashLimitCurrency\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "9bae84a3-7881-410a-9133-bcbffac3bbf3",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cashLimit\": \"2000\",\r\n    \"cashLimitCurrency\": \"bhbjh\",\r\n    \"createAdminCard\": null,\r\n    \"email\": null,\r\n    \"isArchived\": null,\r\n    \"isCreated\": true,\r\n    \"isInviteAfterDraw\": null,\r\n    \"isPhoneRequired\": false,\r\n    \"key\": \"{{$randomPassword}}\",\r\n    \"logo\": null,\r\n    \"name\": \"{{$randomNoun}}_{{$randomInt}}\",\r\n    \"picture\": \"cake\",\r\n    \"useCashLimit\": true,\r\n    \"useCircleDraw\": null,\r\n    \"useNames\": true,\r\n    \"usePost\": false,\r\n    \"useWish\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Base_URL}}/box",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"box"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create_box(negative_2)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3e37022e-5ac5-4fd0-afac-9b5a0001cd9f",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Check error name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.error.name).to.eql(\"ValidationError\");\r",
+							"});\r",
+							"pm.test(\"Check error field\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.error.errors[0].field).to.eql(\"name\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "7b37138f-e4b9-4cb4-a44e-9ae0a9bc4720",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cashLimit\": \"2000\",\r\n    \"cashLimitCurrency\": \"rub\",\r\n    \"createAdminCard\": null,\r\n    \"email\": null,\r\n    \"isArchived\": null,\r\n    \"isCreated\": true,\r\n    \"isInviteAfterDraw\": null,\r\n    \"isPhoneRequired\": false,\r\n    \"key\": \"{{$randomPassword}}\",\r\n    \"logo\": null,\r\n    \"name\": \"\",\r\n    \"picture\": \"cake\",\r\n    \"useCashLimit\": true,\r\n    \"useCircleDraw\": null,\r\n    \"useNames\": true,\r\n    \"usePost\": false,\r\n    \"useWish\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Base_URL}}/box",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"box"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create_box(negative_3)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "95786d9a-c94d-4382-b515-4eedfdb7b54d",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Check useCashLimit\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.box.useCashLimit).to.be.false;\r",
+							"});\r",
+							"pm.test(\"Check cashLimit\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.box.cashLimit).to.be.null;\r",
+							"});\r",
+							"pm.test(\"Check cashLimitCurrency\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.box.cashLimitCurrency).to.be.null;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "94271dc9-0107-4924-bc88-f32093a0a780",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cashLimit\": \"2000\",\r\n    \"cashLimitCurrency\": \"eur\",\r\n    \"createAdminCard\": null,\r\n    \"email\": null,\r\n    \"isArchived\": null,\r\n    \"isCreated\": true,\r\n    \"isInviteAfterDraw\": null,\r\n    \"isPhoneRequired\": false,\r\n    \"key\": \"{{$randomPassword}}\",\r\n    \"logo\": null,\r\n    \"name\": \"{{$randomNoun}}_{{$randomInt}}\",\r\n    \"picture\": \"cake\",\r\n    \"useCashLimit\": false,\r\n    \"useCircleDraw\": null,\r\n    \"useNames\": true,\r\n    \"usePost\": false,\r\n    \"useWish\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Base_URL}}/box",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"box"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update_box(positive)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1695a63c-0126-4a74-ab17-98907908917c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Check email\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.admin.email).to.eql(pm.collectionVariables.get(\"email\"));\r",
+							"});\r",
+							"pm.test(\"Check updated cashLimitCurrency\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.box.cashLimitCurrency).to.eql(\"usd\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "3033fab9-a7f3-4c91-a300-93babf4fb82d",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json;charset=UTF-8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cashLimit\": 2000,\r\n    \"cashLimitCurrency\": \"usd\",\r\n    \"createAdminCard\": null,\r\n    \"email\": null,\r\n    \"isArchived\": null,\r\n    \"isCreated\": null,\r\n    \"isInviteAfterDraw\": null,\r\n    \"isPhoneRequired\": false,\r\n    \"key\": \"{{Key}}\",\r\n    \"logo\": null,\r\n    \"name\": \"{{NameBox}}\",\r\n    \"picture\": \"cake\",\r\n    \"useCashLimit\": true,\r\n    \"useCircleDraw\": null,\r\n    \"useNames\": true,\r\n    \"usePost\": true,\r\n    \"useWish\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Base_URL}}/box",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"box"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update_box(duplicate)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d6f49275-60ed-431f-b4e5-e449d03b0bcd",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Check email\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.admin.email).to.eql(pm.collectionVariables.get(\"email\"));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "e92701e8-1211-4876-83fa-9a628e92111e",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json;charset=UTF-8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cashLimit\": 2000,\r\n    \"cashLimitCurrency\": \"usd\",\r\n    \"createAdminCard\": null,\r\n    \"email\": null,\r\n    \"isArchived\": null,\r\n    \"isCreated\": null,\r\n    \"isInviteAfterDraw\": null,\r\n    \"isPhoneRequired\": false,\r\n    \"key\": \"{{Key}}\",\r\n    \"logo\": null,\r\n    \"name\": \"{{NameBox}}\",\r\n    \"picture\": \"cake\",\r\n    \"useCashLimit\": true,\r\n    \"useCircleDraw\": null,\r\n    \"useNames\": true,\r\n    \"usePost\": true,\r\n    \"useWish\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Base_URL}}/box",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"box"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update_box(negative_1)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "48e5b7c8-bab0-476e-8256-48221521712c",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Check error name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.error.name).to.eql(\"ValidationError\");\r",
+							"});\r",
+							"pm.test(\"Check error field\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.error.errors[0].field).to.eql(\"cashLimitCurrency\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "01ccbca5-b85e-4eac-8893-12114f6c3b49",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json;charset=UTF-8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cashLimit\": 2000,\r\n    \"cashLimitCurrency\": \"bhbjh\",\r\n    \"createAdminCard\": null,\r\n    \"email\": null,\r\n    \"isArchived\": null,\r\n    \"isCreated\": null,\r\n    \"isInviteAfterDraw\": null,\r\n    \"isPhoneRequired\": false,\r\n    \"key\": \"{{Key}}\",\r\n    \"logo\": null,\r\n    \"name\": \"{{NameBox}}\",\r\n    \"picture\": \"cake\",\r\n    \"useCashLimit\": true,\r\n    \"useCircleDraw\": null,\r\n    \"useNames\": true,\r\n    \"usePost\": true,\r\n    \"useWish\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Base_URL}}/box",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"box"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update_box(negative_2)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4f2ab941-35cb-47c9-a0e4-2507282af510",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Check error name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.error.name).to.eql(\"ValidationError\");\r",
+							"});\r",
+							"pm.test(\"Check error field\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.error.errors[0].field).to.eql(\"name\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "30f55298-a0bf-43fb-ad32-e708938bf7fb",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json;charset=UTF-8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cashLimit\": 2000,\r\n    \"cashLimitCurrency\": \"rub\",\r\n    \"createAdminCard\": null,\r\n    \"email\": null,\r\n    \"isArchived\": null,\r\n    \"isCreated\": null,\r\n    \"isInviteAfterDraw\": null,\r\n    \"isPhoneRequired\": false,\r\n    \"key\": \"{{Key}}\",\r\n    \"logo\": null,\r\n    \"name\": \"\",\r\n    \"picture\": \"cake\",\r\n    \"useCashLimit\": true,\r\n    \"useCircleDraw\": null,\r\n    \"useNames\": true,\r\n    \"usePost\": true,\r\n    \"useWish\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Base_URL}}/box",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"box"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update_box(negative_3)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b2afe805-1300-402c-877a-8bbc9953d441",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Check email\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.admin.email).to.eql(pm.collectionVariables.get(\"email\"))\r",
+							"});\r",
+							"pm.test(\"Check useCashLimit\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.box.useCashLimit).to.be.false;\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "e759a0a6-6c9a-4078-bbfa-520c6de36457",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json;charset=UTF-8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cashLimit\": 2000,\r\n    \"cashLimitCurrency\": \"usd\",\r\n    \"createAdminCard\": null,\r\n    \"email\": null,\r\n    \"isArchived\": null,\r\n    \"isCreated\": null,\r\n    \"isInviteAfterDraw\": null,\r\n    \"isPhoneRequired\": false,\r\n    \"key\": \"{{Key}}\",\r\n    \"logo\": null,\r\n    \"name\": \"{{NameBox}}\",\r\n    \"picture\": \"cake\",\r\n    \"useCashLimit\": false,\r\n    \"useCircleDraw\": null,\r\n    \"useNames\": true,\r\n    \"usePost\": true,\r\n    \"useWish\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Base_URL}}/box",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"box"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete_box",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4048d3d5-6076-4682-aff3-742c6aaa4995",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "ab13cbe3-24d5-4045-adb6-702536bc4ddf",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{Base_URL}}/box/{{Key}}",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"box",
+						"{{Key}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete_box(duplicate)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6844c878-07e8-49b7-bb7f-6fb28c036de5",
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"pm.test(\"Check error name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.error.name).to.eql(\"NotFoundError\");\r",
+							"});\r",
+							"pm.test(\"Check error message\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.error.message).to.eql(\"BOX_NOT_FOUND\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "9ae4b954-51d2-4a22-80b7-f0d56b5ca6ad",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{Base_URL}}/box/{{Key}}",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"box",
+						"{{Key}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete_box(randomKey)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4b9ff9e3-de53-4a33-b062-700698216612",
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"pm.test(\"Check error name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.error.name).to.eql(\"NotFoundError\");\r",
+							"});\r",
+							"pm.test(\"Check error message\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.error.message).to.eql(\"BOX_NOT_FOUND\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "b814fa8a-28b5-4e52-9e51-0aef17064bdc",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{Base_URL}}/box/{{$randomPassword}}",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"box",
+						"{{$randomPassword}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "1b1b2c7c-937b-4c9c-b952-3bd9246713a3",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "7985b6ed-e03d-4989-a763-cf74af70235a",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "c633e4c4-6aac-4bf9-a314-846e579f8a75",
+			"key": "Base_URL",
+			"value": "https://staging.lpitko.ru/api",
+			"type": "string"
+		},
+		{
+			"id": "86a1a873-e817-4613-9ae4-81fb63843b22",
+			"key": "email",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "0783b16e-15d3-48e5-96a5-9b12c5e0a2ac",
+			"key": "password",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "43c06360-a374-4fc6-adbe-0fa45d7fa965",
+			"key": "NameBox",
+			"value": ""
+		},
+		{
+			"id": "afc51c59-2a45-45d9-9ea3-b3b8f1276964",
+			"key": "Key",
+			"value": ""
+		}
+	]
+}
