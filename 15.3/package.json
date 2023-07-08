@@ -7,6 +7,7 @@
     "cy:open": "npx cypress open",
     "cy:run": "npx cypress run",
     "cy:prod": "npx cypress run --config-file 'cypress_prod.config.js'",
+    "cy:prod:dashboard": "npx cypress run --config-file 'cypress_prod.config.js' --record --key a34275ea-5e4e-4517-b358-b158f976495f",
     "cy:run:dashboard": "npx cypress run --record --key a34275ea-5e4e-4517-b358-b158f976495f"
   },
   "keywords": [],
