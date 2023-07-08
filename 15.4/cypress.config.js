@@ -1,3 +1,5 @@
+const { defineConfig } = require("cypress");
+
 module.exports = defineConfig({
   projectId: "qncci3",
   pageLoadTimeout: 120000,
