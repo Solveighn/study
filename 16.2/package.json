@@ -1,0 +1,19 @@
+{
+  "name": "16.2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "cy:open": "npx cypress open",
+    "cy:run": "npx cypress run",
+    "cy:run:chrome": "npm run cy:run --browser chrome --spec 'cypress.config.js'",
+    "cy:run:electron": "npm run cy:run --browser electron --spec 'cypress.config.js'",
+    "cy:run:all:dashboard": "npm run cy:run:chrome --record --key 989b3b83-c5fc-4b5c-b46b-0c035fd5672f && npm run cy:run:electron --record --key 989b3b83-c5fc-4b5c-b46b-0c035fd5672f"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cypress": "^12.14.0"
+  }
+}
