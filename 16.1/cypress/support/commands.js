@@ -27,3 +27,12 @@ Cypress.Commands.add('checkLink', (selector,text) => {
     cy.get(selector).should("be.visible").click();
     cy.url().should("include", text);
 });
+
+Cypress.Commands.add('Auth', () => {
+        cy.visit("/");
+        cy.get("#root > div.layout-1 > section.layout-1__header-wrapper-fixed > header > section > div > a > div > div > span").click();
+        cy.get("#root > div.layout-1 > section.layout-1__main-wrapper > div.layout-1__main > section > div > section > div > div.form-auth__main > div:nth-child(3) > input").type("lisenysh1@yandex.ru");
+        cy.get("#root > div.layout-1 > section.layout-1__main-wrapper > div.layout-1__main > section > div > section > div > div.form-auth__main > div:nth-child(4) > input").type("123456");
+        cy.get("#root > div.layout-1 > section.layout-1__main-wrapper > div.layout-1__main > section > div > section > div > div.form-auth__button > div").click();
+
+})
