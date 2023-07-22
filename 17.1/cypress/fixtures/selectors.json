@@ -1,0 +1,12 @@
+{
+"login": {
+  "emailField" : "#root > div.layout-1 > section.layout-1__main-wrapper > div.layout-1__main > section > div > section > div > div.form-auth__main > div:nth-child(3) > input",
+  "passwordField" : "#root > div.layout-1 > section.layout-1__main-wrapper > div.layout-1__main > section > div > section > div > div.form-auth__main > div:nth-child(4) > input",
+  "loginButton" : "#root > div.layout-1 > section.layout-1__main-wrapper > div.layout-1__main > section > div > section > div > div.form-auth__button > div"
+},
+"changePassword": {
+  "newPasswordField" : "#root > div.layout-1 > section.layout-1__main-wrapper > div.layout-1__main > section > div > div.form-page__main > div:nth-child(4) > div.form-page-group__main > div.layout-column-start > div:nth-child(1) > input",
+  "confirmPasswordField" : "#root > div.layout-1 > section.layout-1__main-wrapper > div.layout-1__main > section > div > div.form-page__main > div:nth-child(4) > div.form-page-group__main > div.layout-column-start > div:nth-child(2) > input",
+  "saveChangesButton" : "#root > div.layout-1 > section.layout-1__main-wrapper > div.layout-1__main > section > div > div.form-page__main > div:nth-child(4) > div.form-page-group__main > div.layout-column-start > div.layout-row-end > div"
+}
+}
