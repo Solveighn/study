@@ -11,7 +11,7 @@
     "cy:spec1:dashboard": "npx cypress run --browser chrome --spec 'cypress/e2e/test1/secretSanta_test1.cy.js' --config-file cypress1.config.js --record --key 72504d0d-c1c0-45f9-9cfc-43767e7ea0f3",
     "cy:spec2:dashboard": "npx cypress run --browser electron --spec 'cypress/e2e/test2/secretSanta_test2.cy.js' --config-file cypress2.config.js --record --key 72504d0d-c1c0-45f9-9cfc-43767e7ea0f3",
     "cy:local:parallel": "npm run cy:spec1 & npm run cy:spec2",
-    "cy:dashboard:parallel": "npm run cy:spec1:dashboard -- --group Spec1 --ci-build-id %BUILD_ID% --parallel && npm run cy:spec2:dashboard -- --group Spec2 --ci-build-id %BUILD_ID% --parallel"
+    "cy:dashboard:parallel": "npm run cy:spec1:dashboard -- --group Spec_1 --ci-build-id 8 --parallel & npm run cy:spec2:dashboard -- --group Spec_2 --ci-build-id 9 --parallel"
   },
   "keywords": [],
   "author": "",
